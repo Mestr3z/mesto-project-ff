@@ -2,8 +2,11 @@
   height: 282px;
   object-fit: cover;
   width: 100%;
+  transition: opacity 0.3s ease;
 }
 
 .card__image:hover {
   cursor: pointer;
+  opacity: 0.6;
+  
 }
