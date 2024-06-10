@@ -16,7 +16,7 @@
   "bugs": {
     "url": "https://github.com/Mestr3z/mesto-project-ff/issues"
   },
-  "homepage": "https://github.com/Mestr3z/mesto-project-ff#readme",
+  "homepage": "https://mestr3z.github.io/mesto-project-ff/",
   "devDependencies": {
     "@babel/core": "^7.24.6",
     "@babel/preset-env": "^7.24.6",
