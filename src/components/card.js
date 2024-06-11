@@ -12,8 +12,9 @@ export function createCard(
   const cardElement = cardLayout.querySelector(".card");
   const deleteButton = cardLayout.querySelector(".card__delete-button");
   const cardImage = cardLayout.querySelector(".card__image");
+  const cardTitle = cardLayout.querySelector(".card__title");
 
-  cardLayout.querySelector(".card__title").textContent = cardData.name;
+  cardTitle.textContent = cardData.name;
   cardImage.src = cardData.link;
   cardImage.alt = cardData.name;
 

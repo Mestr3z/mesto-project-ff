@@ -16,11 +16,11 @@ import {
   popupAddCardNameInput,
 } from "../scripts/index";
 
-import { handleLikeCard, deleteCard } from "./card";
+import { handleLikeCard, deleteCard} from "./card";
 
 //функция добавления карточки
 export function addCard(evt) {
-  evt.preventDefault();
+    evt.preventDefault()
   const cardLayout = cardTemplate.cloneNode(true);
   const cardElement = cardLayout.querySelector(".card");
   const cardImageLink = cardLayout.querySelector(".card__image");
