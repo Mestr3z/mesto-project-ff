@@ -1,70 +1,52 @@
 import "../pages/index.css";
-
-import { createCard, deleteCard, handleLikeCard } from "../components/card";
-import { addCard, openPopup, handleFormSubmit } from "../components/modal";
-
+import {
+  createCard,
+  deleteCard,
+  handleLikeCard,
+  handleImagePopupOpen,
+  cardList,
+} from "../components/card";
+import { openPopup, setClosePopupEventListeners } from "../components/modal";
 import { initialCards } from "../scripts/cards";
 
-// темплейт карточки
-export const cardTemplate = document.querySelector("#card-template").content;
-
-// узел
-export const cardList = document.querySelector(".places__list");
-
-//попап с картинкой карточки и её описанием
-export const imagePopup = document.querySelector(".popup_type_image");
-
 //попап с редактированием имени и сферы деятельности
-export const editPopup = document.querySelector(".popup_type_edit");
-
-// попап добавления новой карточки на страницу
-export const addCardPopup = document.querySelector(".popup_type_new-card");
+const editPopup = document.querySelector(".popup_type_edit");
 
 //кнопка открытия попапа с редактированием имени и сферы деятельности
-export const editButton = document.querySelector(".profile__edit-button");
-
-//кнопка открытия попапа с добавлением новой карточки на страницу
-export const addButton = document.querySelector(".profile__add-button");
-
-//массив всех попапов
-export const popupElems = document.querySelectorAll(".popup");
-
-//массив всех кнопко закрытия у попапа
-export const popupCloseButtons = document.querySelectorAll(".popup__close");
-
-export const popupImageLink = document.querySelector(".popup__image");
-export const popupImageDescription = document.querySelector(".popup__caption");
-export const popupAddCardNameInput = document.querySelector(
-  ".popup__input_type_card-name"
-);
-export const popupAddCardLinkInput = document.querySelector(
-  ".popup__input_type_url"
-);
+const editButton = document.querySelector(".profile__edit-button");
 
 // Находим поля формы в DOM
-export const nameInput = editPopup.querySelector(".popup__input_type_name");
-export const jobInput = editPopup.querySelector(
-  ".popup__input_type_description"
-);
-export const profileName = document.querySelector(".profile__title");
-export const profileJob = document.querySelector(".profile__description");
-
-//функция создания и добавления новой карточки
-
-//слушатель на кнопку добавление новой карточки
-addCardPopup.addEventListener("submit", addCard);
+let nameInput = editPopup.querySelector(".popup__input_type_name");
+let jobInput = editPopup.querySelector(".popup__input_type_description");
+const profileName = document.querySelector(".profile__title");
+const profileJob = document.querySelector(".profile__description");
 
 //слушатель на кнопку открытия попапа с редактирование имени
-editButton.addEventListener("click", () => openPopup(editPopup));
+editButton.addEventListener("click", function () {
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileJob.textContent;
+  openPopup(editPopup);
+});
 //слушатель на кнопку открытия попапа с добавлением новой карточки
-addButton.addEventListener("click", () => openPopup(addCardPopup));
 
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
 editPopup.addEventListener("submit", handleFormSubmit);
 
 //вывод карточки на страницу
-
 initialCards.forEach(function (cardData) {
-  cardList.append(createCard(cardData, deleteCard, handleLikeCard));
+  cardList.append(
+    createCard(cardData, deleteCard, handleLikeCard, handleImagePopupOpen)
+  );
 });
+
+function handleFormSubmit(evt) {
+  evt.preventDefault();
+
+  profileName.textContent = nameInput.value;
+  profileJob.textContent = jobInput.value;
+
+  editPopup.classList.remove("popup_is-opened");
+}
+
+editPopup.addEventListener("click", setClosePopupEventListeners(editPopup));
