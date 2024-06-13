@@ -10,8 +10,8 @@ const editPopup = document.querySelector(".popup_type_edit");
 const editButton = document.querySelector(".profile__edit-button");
 
 // поля формы editPopup
-let nameInput = editPopup.querySelector(".popup__input_type_name");
-let jobInput = editPopup.querySelector(".popup__input_type_description");
+const nameInput = editPopup.querySelector(".popup__input_type_name");
+const jobInput = editPopup.querySelector(".popup__input_type_description");
 
 //элементы имени и сферы деятельности
 const profileName = document.querySelector(".profile__title");
