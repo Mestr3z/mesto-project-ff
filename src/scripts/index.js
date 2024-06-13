@@ -38,13 +38,13 @@ const popupAddCardLinkInput = document.querySelector(".popup__input_type_url");
 const addButton = document.querySelector(".profile__add-button");
 
 //функция изменения имени и сферы деятельности
-function handleFormSubmit(evt) {
+function handleProfileFormSubmit(evt) {
   evt.preventDefault();
 
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
 
-  editPopup.classList.remove("popup_is-opened");
+  closePopup(editPopup);
 }
 
 //функция открытия попапа с изображением
@@ -77,7 +77,7 @@ function addCard(evt) {
 
 //обработчики сабмита форм
 addCardPopup.addEventListener("submit", addCard);
-editPopup.addEventListener("submit", handleFormSubmit);
+editPopup.addEventListener("submit", handleProfileFormSubmit);
 
 //слушатель на кнопку открытия попапа с добавлением новой карточки
 addButton.addEventListener("click", function () {
