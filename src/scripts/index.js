@@ -1,5 +1,5 @@
 import "../pages/index.css";
-import { createCard, deleteCard, handleLikeCard } from "../components/card";
+import { createCard, handleDeleteCard, handleLikeCard } from "../components/card";
 import { openPopup, setClosePopupEventListeners, closePopup } from "../components/modal";
 import { initialCards } from "../scripts/cards";
 
@@ -63,7 +63,7 @@ function addCard(evt) {
 
   const newCard = createCard(
     { name: popupAddCardNameInput.value, link: popupAddCardLinkInput.value },
-    deleteCard,
+    handleDeleteCard,
     handleLikeCard,
     handleImagePopupOpen
   );
@@ -100,6 +100,6 @@ setClosePopupEventListeners(editPopup);
 //вывод карточки на страницу
 initialCards.forEach(function (cardData) {
   cardList.append(
-    createCard(cardData, deleteCard, handleLikeCard, handleImagePopupOpen)
+    createCard(cardData, handleDeleteCard, handleLikeCard, handleImagePopupOpen)
   );
 });

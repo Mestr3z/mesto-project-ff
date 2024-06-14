@@ -4,7 +4,7 @@ const cardTemplate = document.querySelector("#card-template").content;
 //функция создания карточки
 export function createCard(
   { name, link },
-  deleteCardFunction,
+  handleDeleteCardFunction,
   handleLikeCardfunction,
   handleImagePopupOpenFunction
 ) {
@@ -20,7 +20,7 @@ export function createCard(
   cardImage.alt = name;
 
   deleteButton.addEventListener("click", function () {
-    deleteCardFunction(cardElement);
+    handleDeleteCardFunction(cardElement);
   });
 
   cardLikeButton.addEventListener('click', handleLikeCard);
@@ -32,7 +32,7 @@ export function createCard(
   return cardLayout;
 }
 //функция удаления карточки
-export function deleteCard(cardElement) {
+export function handleDeleteCard(cardElement) {
   cardElement.remove();
 }
 //функция лайка карточки
