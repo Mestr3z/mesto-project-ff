@@ -8,6 +8,41 @@
   background-position: center;
   margin: 0 29px 0 0;
   background-image: url('../../../images/avatar.jpg');
+  cursor: pointer;
+  z-index: 0;
+}
+
+.profile__image::after{
+  content: "";
+  position: absolute;
+  background-image: url("../../../images/edit-icon.svg");
+  background-position: center;
+  background-size: 26px;
+  z-index: 2;
+  width: 120px;
+  height: 120px;
+  background-repeat: no-repeat;
+  visibility: hidden;
+}
+
+.profile__image:hover::after{
+  visibility: visible;
+  opacity: 1;
+}
+
+.profile__image::before{
+  content: "";
+  position: absolute;
+  background-color: #000;
+  opacity: 0;
+  z-index: 1;
+  width: 120px;
+  height: 120px;
+  top: 36px;
+}
+
+.profile__image:hover::before{
+  opacity: 0.6;
 }
 
 @media screen and (max-width: 740px) {
