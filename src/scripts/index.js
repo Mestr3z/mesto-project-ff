@@ -32,7 +32,7 @@ const cardList = document.querySelector(".places__list");
 
 //попап добавления новой карточки
 const addCardPopup = document.querySelector(".popup_type_new-card");
-const addCardForm = document.forms["new-place"];
+
 //попап с картинкой
 const imagePopup = document.querySelector(".popup_type_image");
 
