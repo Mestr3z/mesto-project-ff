@@ -1,12 +1,19 @@
-import { config } from "../scripts/index.js";
-import { getRes } from "../scripts/index.js";
+import { apiConfig } from "../scripts/index.js";
+
 //функция удаления карточки
-export const handleDeleteCard = (_id) => {
-  return fetch(`${config.url}/cards/${_id}`, {
+export function getRes(res) {
+  if (res.ok) {
+    return res.json();
+  }
+  return Promise.reject(`Ошибка: ${res.status}`);
+}
+
+export const handleDeleteCard = (id) => {
+  return fetch(`${apiConfig.url}/cards/${id}`, {
     method: "DELETE",
     headers: {
-      authorization: config.headers.authorization,
-      "Content-Type": config.headers["Content-Type"],
+      authorization: apiConfig.headers.authorization,
+      "Content-Type": apiConfig.headers["Content-Type"],
     },
   })
     .then(getRes)
@@ -15,57 +22,87 @@ export const handleDeleteCard = (_id) => {
     });
 };
 //функция лайка карточки
-export const sendLikeToServer = (_id) => {
-  return fetch(`${config.url}/cards/likes/${_id}`, {
+export const sendLikeToServer = (id) => {
+  return fetch(`${apiConfig.url}/cards/likes/${id}`, {
     method: "PUT",
     headers: {
-      authorization: config.headers.authorization,
-      "Content-Type": config.headers["Content-Type"],
+      authorization: apiConfig.headers.authorization,
+      "Content-Type": apiConfig.headers["Content-Type"],
     },
-  })
-    .then(getRes)
-    .catch((res) => {
-      console.log(`Ошибка: ${res.status}`);
-    });
+  }).then(getRes);
 };
 
-export const removeLikeFromServer = (_id) => {
-  return fetch(`${config.url}/cards/likes/${_id}`, {
+export const removeLikeFromServer = (id) => {
+  return fetch(`${apiConfig.url}/cards/likes/${id}`, {
     method: "DELETE",
     headers: {
-      authorization: config.headers.authorization,
-      "Content-Type": config.headers["Content-Type"],
+      authorization: apiConfig.headers.authorization,
+      "Content-Type": apiConfig.headers["Content-Type"],
     },
-  })
-    .then(getRes)
-    .catch((res) => {
-      console.log(`Ошибка: ${res.status}`);
-    });
+  }).then(getRes);
 };
 
-export const sendUserDataServer = (profileName, profileJob) => {
-  return fetch(`${config.url}/users/me`, {
+export const sendUserDataServer = (name, job) => {
+  return fetch(`${apiConfig.url}/users/me`, {
     method: "PATCH",
     headers: {
-      authorization: config.headers.authorization,
-      "Content-Type": config.headers["Content-Type"],
+      authorization: apiConfig.headers.authorization,
+      "Content-Type": apiConfig.headers["Content-Type"],
     },
     body: JSON.stringify({
-      name: profileName.textContent,
-      about: profileJob.textContent,
+      name: name,
+      about: job,
     }),
   }).then(getRes);
 };
 
 export const sendUserAvatarServer = (userAvatarLink) => {
-  return fetch(`${config.url}/users/me/avatar`, {
+  return fetch(`${apiConfig.url}/users/me/avatar`, {
     method: "PATCH",
     headers: {
-      authorization: config.headers.authorization,
-      "Content-Type": config.headers["Content-Type"],
+      authorization: apiConfig.headers.authorization,
+      "Content-Type": apiConfig.headers["Content-Type"],
     },
     body: JSON.stringify({
       avatar: userAvatarLink,
     }),
   }).then(getRes);
 };
+
+export const getInitialCards = () => {
+  return fetch(`${apiConfig.url}/cards`, {
+    headers: apiConfig.headers,
+  })
+    .then(getRes)
+    .catch((res) => {
+      console.log(`Ошибка: ${res.status}`);
+    });
+};
+
+export const postCard = (newCard) => {
+  return fetch(`${apiConfig.url}/cards`, {
+    method: "POST",
+    body: JSON.stringify({
+      name: newCard.name,
+      link: newCard.link,
+    }),
+    headers: {
+      authorization: apiConfig.headers.authorization,
+      "Content-Type": apiConfig.headers["Content-Type"],
+    },
+  })
+    .then(getRes)
+    .catch((res) => {
+      console.log(`Ошибка: ${res.status}`);
+    });
+};
+
+export function getUserInfo() {
+  return fetch(`${apiConfig.url}/users/me`, {
+    headers: apiConfig.headers,
+  })
+    .then(getRes)
+    .catch((res) => {
+      console.log(`Ошибка: ${res.status}`);
+    });
+}
