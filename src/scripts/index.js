@@ -118,10 +118,11 @@ function addCard(evt) {
 function editProfileData(evt) {
   evt.preventDefault();
   renderLoading(editPopup, "Сохранение...");
-  profileName.textContent = nameInput.value;
-  profileJob.textContent = jobInput.value;
-  sendUserDataServer(profileName.textContent, profileJob.textContent)
+ 
+  sendUserDataServer(profileName, profileJob)
     .then(() => {
+      profileName.textContent = nameInput.value;
+      profileJob.textContent = jobInput.value;
       closePopup(editPopup);
     })
     .catch((res) => {
@@ -157,6 +158,7 @@ function renderLoading(popup, saving) {
 //обработчики сабмита форм
 addCardPopup.addEventListener("submit", (evt) => {
   addCard(evt);
+  clearValidation(addCardPopup, configValidation);
 });
 
 editPopup.addEventListener("submit", (evt) => {
@@ -165,13 +167,11 @@ editPopup.addEventListener("submit", (evt) => {
 
 profileAvatar.addEventListener("click", () => {
   openPopup(avatarPopup);
-  clearValidation(avatarPopup, configValidation);
 });
 
 //слушатель на кнопку открытия попапа с добавлением новой карточки
 addButton.addEventListener("click", function () {
   openPopup(addCardPopup);
-  clearValidation(addCardPopup, configValidation);
 });
 
 //слушатель на кнопку открытия попапа с редактирование имени
@@ -184,6 +184,7 @@ editButton.addEventListener("click", function () {
 
 avatarPopup.addEventListener("submit", (evt) => {
   sendUserAvatar(evt);
+  clearValidation(avatarPopup, configValidation);
 });
 
 //Загружаем данные о пользователе и карточки на страницу
@@ -202,7 +203,10 @@ Promise.all(initialDataRequestPromises).then((data) => {
         handleLikeCard
       )
     );
-  });
+  })
+})
+.catch((res) => {
+  console.log(`Ошибка: ${res.status}`);
 });
 
 enableValidation(configValidation);

@@ -17,9 +17,6 @@ export const handleDeleteCard = (id) => {
     },
   })
     .then(getRes)
-    .catch((res) => {
-      console.log(`Ошибка: ${res.status}`);
-    });
 };
 //функция лайка карточки
 export const sendLikeToServer = (id) => {
@@ -50,8 +47,8 @@ export const sendUserDataServer = (name, job) => {
       "Content-Type": apiConfig.headers["Content-Type"],
     },
     body: JSON.stringify({
-      name: name,
-      about: job,
+      name: name.textContent,
+      about: job.textContent,
     }),
   }).then(getRes);
 };
@@ -92,9 +89,7 @@ export const postCard = (newCard) => {
     },
   })
     .then(getRes)
-    .catch((res) => {
-      console.log(`Ошибка: ${res.status}`);
-    });
+   
 };
 
 export function getUserInfo() {
@@ -102,7 +97,5 @@ export function getUserInfo() {
     headers: apiConfig.headers,
   })
     .then(getRes)
-    .catch((res) => {
-      console.log(`Ошибка: ${res.status}`);
-    });
+ 
 }
