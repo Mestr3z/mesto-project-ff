@@ -105,6 +105,7 @@ function addCard(evt) {
       );
       popupAddCardNameInput.value = "";
       popupAddCardLinkInput.value = "";
+      clearValidation(addCardPopup, configValidation);
       closePopup(addCardPopup);
     })
     .catch((res) => {
@@ -119,10 +120,11 @@ function editProfileData(evt) {
   evt.preventDefault();
   renderLoading(editPopup, "Сохранение...");
  
-  sendUserDataServer(profileName, profileJob)
-    .then(() => {
-      profileName.textContent = nameInput.value;
-      profileJob.textContent = jobInput.value;
+  sendUserDataServer(nameInput.value, jobInput.value)
+    .then((res) => {
+      console.log(res)
+      profileName.textContent = res.name;
+      profileJob.textContent = res.about;
       closePopup(editPopup);
     })
     .catch((res) => {
@@ -140,6 +142,7 @@ function sendUserAvatar(evt) {
     .then((res) => {
       profileAvatar.style.backgroundImage = `url("${res.avatar}")`;
       avatarPopupInput.value = "";
+      clearValidation(avatarPopup, configValidation);
       closePopup(avatarPopup);
     })
     .catch((res) => {
@@ -158,7 +161,6 @@ function renderLoading(popup, saving) {
 //обработчики сабмита форм
 addCardPopup.addEventListener("submit", (evt) => {
   addCard(evt);
-  clearValidation(addCardPopup, configValidation);
 });
 
 editPopup.addEventListener("submit", (evt) => {
@@ -184,7 +186,6 @@ editButton.addEventListener("click", function () {
 
 avatarPopup.addEventListener("submit", (evt) => {
   sendUserAvatar(evt);
-  clearValidation(avatarPopup, configValidation);
 });
 
 //Загружаем данные о пользователе и карточки на страницу

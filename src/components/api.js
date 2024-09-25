@@ -47,8 +47,8 @@ export const sendUserDataServer = (name, job) => {
       "Content-Type": apiConfig.headers["Content-Type"],
     },
     body: JSON.stringify({
-      name: name.textContent,
-      about: job.textContent,
+      name: name,
+      about: job,
     }),
   }).then(getRes);
 };
@@ -71,9 +71,6 @@ export const getInitialCards = () => {
     headers: apiConfig.headers,
   })
     .then(getRes)
-    .catch((res) => {
-      console.log(`Ошибка: ${res.status}`);
-    });
 };
 
 export const postCard = (newCard) => {
